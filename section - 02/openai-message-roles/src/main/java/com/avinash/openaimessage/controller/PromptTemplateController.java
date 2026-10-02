@@ -17,21 +17,15 @@ public class PromptTemplateController {
         this.chatClient = chatClient;
     }
 
-    @Value("classpath:/promptTemplates/userTemplate.st")
-    Resource promptTemplate;
+    @Value("classpath:/promptTemplates/systemTemplate.st")
+    Resource systemPromptTemplate;
 
-    @GetMapping("/email")
-    public String emailResponse(@RequestParam("customerName") String customerName,
-                                @RequestParam("customerMessage") String customerMessage){
+    @GetMapping("/prompt-stuffing")
+    public String promptStuffing(@RequestParam("message") String message){
         return chatClient
                 .prompt()
-                .system("""
-                         You are a professional customer service assistant which helps drafting email
-                          responses to improve the productivity of the customer support team
-                        """)
-                .user(promptUserSpec -> promptUserSpec.text(promptTemplate)
-                        .param("customerName", customerName)
-                        .param("customerMessage", customerMessage))
+                .system(systemPromptTemplate)
+                .user(message)
                 .call()
                 .content();
     }
