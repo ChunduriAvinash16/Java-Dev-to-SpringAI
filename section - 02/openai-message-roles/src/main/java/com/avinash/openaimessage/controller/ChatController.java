@@ -13,20 +13,24 @@ public class ChatController {
 
     private final ChatClient chatClient;
 
-    public ChatController(ChatClient.Builder chatClient) {
-        this.chatClient = chatClient.build();
+    public ChatController(ChatClient chatClient) {
+        this.chatClient = chatClient;
     }
 
     @GetMapping("/chat")
     public String helloController(@RequestParam("message") String message){
         return chatClient
                 .prompt()
+                // overrideing the default system message
+                /*
                 .system("""
-                        You are internal HR assistant. Your role is to help\s
-                        employees with questions related to HR policies such as leave policies, working hours\s
-                        benefits and code of conduct. If user ask anything outside this topics \s
-                        kindly inform them that you can only assist with queries related to HR policies.
+                        You are an internal IT helpdesk assistant. Your role is to help\s
+                        assist employees with IT related issues such as resetting password \s
+                        updating the software , unloacking the accounts \s
+                        If user ask anything outside this topics \s
+                        kindly inform them that you can only assist with queries related to IT.
                         """)
+                 */
                 .user(message)
                 .call()
                 .content();
