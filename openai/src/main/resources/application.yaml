@@ -1,0 +1,18 @@
+spring.application.name : openai
+
+logging:
+  pattern:
+    console: "%green(%d{HH.mm.ss.SSS}) %blue(%-5level) %yellow([%thread]) %red(%logger{15}) - %msg%n"
+
+# Connecting to Open AI
+# spring.ai.openai.apiKey : ${OPENAI_API_KEY}
+
+# Ollama
+#spring.ai.model.chat : ollama #[Optional]The primary chatModel to autoconfigure If not set each chatModel autoconfiguration is enabled
+#spring.ai.ollama.host: http://localhost:11434 #By Default host link
+#spring.ai.ollama.chat.model : llama3.2:1b
+
+# Docker
+spring.ai.openai.chat.model : ai/gemma3:1b
+spring.ai.openai.chat.base-url: http://localhost:12434/engines/v1
+spring.ai.openai.apiKey: dummy
