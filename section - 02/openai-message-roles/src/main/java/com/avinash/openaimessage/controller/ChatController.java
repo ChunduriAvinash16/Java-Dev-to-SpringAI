@@ -1,6 +1,7 @@
 package com.avinash.openaimessage.controller;
 
 
+import com.avinash.openaimessage.advisors.TokenUsageAuditAdvisor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,7 @@ public class ChatController {
     public String helloController(@RequestParam("message") String message){
         return chatClient
                 .prompt()
+                //.advisors(new TokenUsageAuditAdvisor())
                 // overrideing the default system message
                 /*
                 .system("""

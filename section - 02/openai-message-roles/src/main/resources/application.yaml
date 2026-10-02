@@ -4,11 +4,7 @@ logging:
   pattern:
     console: "%green(%d{HH.mm.ss.SSS}) %blue(%-5level) %yellow([%thread]) %red(%logger{15}) - %msg%n"
   level:
-    org:
-      springframework:
-        ai:
-          chat:
-            client:
-              advisor: DEBUG
+    org.springframework.ai.chat.client.advisor: DEBUG
+    com.avinash.openaimessage.advisors: DEBUG
 
 spring.ai.openai.apiKey : ${OPENAI_API_KEY}
