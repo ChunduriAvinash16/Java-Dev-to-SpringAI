@@ -28,7 +28,8 @@ public class ChatMemoryClientConfig {
     @Bean("chatMemoryClient")
     public ChatClient chatClient(ChatClient.Builder chatClientBuilder,@Qualifier("jdbcChatMemory") ChatMemory chatMemory) {
         MessageChatMemoryAdvisor chatMemoryAdvisor = MessageChatMemoryAdvisor.builder(chatMemory).build();
+        TokenUsageAuditAdvisor tokenUsageAuditAdvisor = new TokenUsageAuditAdvisor();
         SimpleLoggerAdvisor simpleLoggerAdvisor = new SimpleLoggerAdvisor();
-        return chatClientBuilder.defaultAdvisors(List.of(simpleLoggerAdvisor, chatMemoryAdvisor)).build();
+        return chatClientBuilder.defaultAdvisors(List.of(simpleLoggerAdvisor, chatMemoryAdvisor, tokenUsageAuditAdvisor)).build();
     }
 }
