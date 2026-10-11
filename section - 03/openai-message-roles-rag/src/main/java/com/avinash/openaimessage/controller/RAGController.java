@@ -38,20 +38,20 @@ public class RAGController {
                                                 @RequestHeader("username") String username){
 
         //Creating the Search Request
-        SearchRequest searchRequest = SearchRequest.builder()
-                .query(message).topK(3).similarityThreshold(0.5).build();
-
-        //Getting the similar documents based on the search request
-        List<Document> similarDocuments = vectorStore.similaritySearch(searchRequest);
-
-        //Converting the List<Documents> into get with the lineSperator
-        String similarContext = similarDocuments.stream()
-                .map(Document::getText)
-                .collect(Collectors.joining(System.lineSeparator()));
+//        SearchRequest searchRequest = SearchRequest.builder()
+//                .query(message).topK(3).similarityThreshold(0.5).build();
+//
+//        //Getting the similar documents based on the search request
+//        List<Document> similarDocuments = vectorStore.similaritySearch(searchRequest);
+//
+//        //Converting the List<Documents> into get with the lineSperator
+//        String similarContext = similarDocuments.stream()
+//                .map(Document::getText)
+//                .collect(Collectors.joining(System.lineSeparator()));
 
         //
         String answer = chatClient.prompt()
-                .system(promptSystemSpec -> promptSystemSpec.text(promptTemplate).param("documents", similarContext))
+//                .system(promptSystemSpec -> promptSystemSpec.text(promptTemplate).param("documents", similarContext))
                 .advisors(a -> a.param(CONVERSATION_ID, username))
                 .user(message).call().content();
 
@@ -65,20 +65,20 @@ public class RAGController {
                                                 @RequestHeader("username") String username){
 
         //Creating the Search Request
-        SearchRequest searchRequest = SearchRequest.builder()
-                .query(message).topK(3).similarityThreshold(0.5).build();
-
-        //Getting the similar documents based on the search request
-        List<Document> similarDocuments = vectorStore.similaritySearch(searchRequest);
-
-        //Converting the List<Documents> into get with the lineSperator
-        String similarContext = similarDocuments.stream()
-                .map(Document::getText)
-                .collect(Collectors.joining(System.lineSeparator()));
+//        SearchRequest searchRequest = SearchRequest.builder()
+//                .query(message).topK(3).similarityThreshold(0.5).build();
+//
+//        //Getting the similar documents based on the search request
+//        List<Document> similarDocuments = vectorStore.similaritySearch(searchRequest);
+//
+//        //Converting the List<Documents> into get with the lineSperator
+//        String similarContext = similarDocuments.stream()
+//                .map(Document::getText)
+//                .collect(Collectors.joining(System.lineSeparator()));
 
         //
         String answer = chatClient.prompt()
-                .system(promptSystemSpec -> promptSystemSpec.text(systemPromptTemplate).param("documents", similarContext))
+//                .system(promptSystemSpec -> promptSystemSpec.text(systemPromptTemplate).param("documents", similarContext))
                 .advisors(a -> a.param(CONVERSATION_ID, username))
                 .user(message).call().content();
 
