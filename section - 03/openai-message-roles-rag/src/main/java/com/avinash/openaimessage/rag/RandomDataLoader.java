@@ -28,7 +28,7 @@ public class RandomDataLoader {
                 "Redis is an in-memory data store used for caching.",
                 "PostgreSQL supports complex queries and full ACID compliance.",
                 "Kafka is a distributed event streaming platform.",
-                "REST APIs allow stateless client-server communication.",
+                "REST APIs allow stateless restClient-server communication.",
                 "GraphQL enables clients to fetch exactly the data they need.",
                 "Credit scores influence the interest rates on loans.",
                 "Mutual funds pool money from investors to buy securities.",

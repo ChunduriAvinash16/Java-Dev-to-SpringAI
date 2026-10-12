@@ -20,6 +20,7 @@ import static org.springframework.ai.chat.memory.ChatMemory.CONVERSATION_ID;
 @RequestMapping("/api/rag")
 public class RAGController {
     private final ChatClient chatClient;
+    private final ChatClient webSearchClient;
     private final VectorStore vectorStore;
 
     @Value("classpath:/promptTemplates/systemRandomDataTemplate.st")
@@ -28,8 +29,9 @@ public class RAGController {
     @Value("classpath:/promptTemplates/systemTemplateRAG.st")
     Resource systemPromptTemplate;
 
-    RAGController(@Qualifier("chatMemoryClient") ChatClient chatClient, VectorStore vectorStore){
+    RAGController(@Qualifier("chatMemoryClient") ChatClient chatClient, VectorStore vectorStore, @Qualifier("webSearchRAGChatClient") ChatClient webSearchClient) {
         this.chatClient = chatClient;
+        this.webSearchClient = webSearchClient;
         this.vectorStore = vectorStore;
     }
 
@@ -81,6 +83,19 @@ public class RAGController {
 //                .system(promptSystemSpec -> promptSystemSpec.text(systemPromptTemplate).param("documents", similarContext))
                 .advisors(a -> a.param(CONVERSATION_ID, username))
                 .user(message).call().content();
+
+        return ResponseEntity.ok(answer);
+    }
+
+
+    @GetMapping("/web-search/chat")
+    public ResponseEntity<String> webSearchChat(@RequestHeader("username") String username
+            , @RequestParam("message") String message){
+        String answer =  webSearchClient.prompt()
+                .advisors(a -> a.param(CONVERSATION_ID, username))
+                .user(message)
+                .call()
+                .content();
 
         return ResponseEntity.ok(answer);
     }
